@@ -68,22 +68,55 @@ class StoryList {
 
   /** Adds story data to API, makes a Story instance, adds it to story list.
    * - user - the current instance of User who will post the story
-   * - obj of {title, author, url}
+   * - obj of {title, author, url}// newStory
    *
    * Returns the new Story instance
    */
 
-  // newStory =
-  // current user
-  // {title, author, url}
-  //  story instance : {title, author, url, username, storyId, createdAt}
+  //https://hack-or-snooze-v3.herokuapp.com/stories
+  // data along with post request
+  // {
+  // "token": "YOUR_TOKEN_HERE",
+  // "story": {
+  //   "author": "Matt Lane",
+  //   "title": "The best story ever",
+  //   "url": "http://google.com"
+  // }
   async addStory(user, newStory) {
     // UNIMPLEMENTED: complete this function!
+    // deconstruct user
+    let { username, loginToken } = user;
+    // deconstruct newStory
     let { title, author, url } = newStory;
-    let { username, createdAt } = user;
-    let newStory = new Story(title, author, url, username, createdAt);
+    // make an API call (post request with new story)
+    let newStoryInfoAndToken = {
+      token: loginToken,
+      story: {
+        author: author,
+        title: title,
+        url: url
+      }
+    };
+    let response = await axios.post(`${BASE_URL}/stories`, newStoryInfoAndToken);
+    // API will give the reponse back with data for creating a new Story instance
+    // {
+    //   "story": {
+    //     "author": "Matt Lane",
+    //     "createdAt": "017-11-09T18:38:39.409Z",
+    //     "storyId": "5081e46e-3143-4c0c-bbf4-c22eb11eb3f5",
+    //     "title": "The Best Story Ever",
+    //     "updatedAt": "017-11-09T18:38:39.409Z",
+    //     "url": "https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math",
+    //     "username": "hueter"
+    //   }
+    // }
+    let storyId = response.story.storyId;
+    let createdAt = response.story.createdAt;
 
+    // story: constructor({ storyId, title, author, url, username, createdAt })
+    let newStory = new Story(storyId, title, author, url, username, createdAt);
 
+    return newStory;
   }
 }
 
