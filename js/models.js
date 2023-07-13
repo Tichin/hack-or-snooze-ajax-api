@@ -98,6 +98,7 @@ class StoryList {
       }
     };
     let response = await axios.post(`${BASE_URL}/stories`, newStoryInfoAndToken);
+    console.log('response is =>', response);
     // API will give the reponse back with data for creating a new Story instance
     // {
     //   "story": {
@@ -110,13 +111,13 @@ class StoryList {
     //     "username": "hueter"
     //   }
     // }
-    let storyId = response.story.storyId;
-    let createdAt = response.story.createdAt;
+    let storyId = response.data.story.storyId;
+    let createdAt = response.data.story.createdAt;
 
     // story: constructor({ storyId, title, author, url, username, createdAt })
-    let newStory = new Story(storyId, title, author, url, username, createdAt);
+    let story = new Story(storyId, title, author, url, username, createdAt);
 
-    return newStory;
+    return story;
   }
 }
 

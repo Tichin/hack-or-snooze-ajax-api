@@ -1,5 +1,6 @@
 "use strict";
 
+
 /******************************************************************************
  * Handling navbar clicks and updating navbar
  */
@@ -12,6 +13,8 @@ function navAllStories(evt) {
   hidePageComponents();
   putStoriesOnPage();
 }
+
+console.log()
 
 $body.on("click", "#nav-all", navAllStories);
 
@@ -36,3 +39,13 @@ function updateNavOnLogin() {
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
 }
+
+function navSubmitClick(evt) {
+  console.debug("navSubmitClick", evt);
+  evt.preventDefault();
+  hidePageComponents();
+  console.log($newStoryForm);
+  $newStoryForm.show();
+}
+
+$SUBMIT_BUTTON.on("click",navSubmitClick);
