@@ -217,18 +217,27 @@ class User {
 
   async favoriteStory(story) {
     this.favorites.push(story);
-    const reponse = await axios({
-      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}}`,
+    let response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: "POST",
       data: { token: this.loginToken },
     });
+    console.log(response);
   }
 
-  unfavoriteStory(story) {
+  async unfavoriteStory(story) {
     console.log("beginning length => ", this.favorites.length);
     const ID = story.storyId;
-    const newFavs =  this.favorites.filter(storyObj => { console.log(storyObj); return storyObj.storyId !== ID});
-    this.favorites = newFavs;
+    this.favorites = this.favorites.filter(storyObj => { return storyObj.storyId !== ID; });
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "DELETE",
+      data: { token: this.loginToken },
+    });
+
+    console.log(response);
+
+
 
     console.log("after change length => ", this.favorites);
 
