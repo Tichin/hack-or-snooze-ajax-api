@@ -2,6 +2,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+console.log("storylist is", storyList);
 const $newStoryAuthor = $('#new-story-author');
 const $newStoryTitle = $('#new-story-title');
 const $newStoryUrl = $('#new-story-url');
@@ -62,8 +63,7 @@ function putStoriesOnPage() {
 /** Get and show new story data and display it on the website. */
 
 
-// async
-function getAndShowNewStory(evt) {
+async function getAndShowNewStory(evt) {
 
   console.log('getAndShowNewStory');
 
@@ -74,9 +74,10 @@ function getAndShowNewStory(evt) {
   let url = $newStoryUrl.val();
   console.log('author title url', author, title, url);
   console.log('user', currentUser);
-  // let newStoryObj = await storyList.addStory(currentUser, { author, title, url });
 
-  // console.log(newStoryObj);
+  let newStoryObj = await storyList.addStory(currentUser, { author: author, title: title, url: url });
+
+  console.log(newStoryObj);
 
   // call addStory
   // display the story

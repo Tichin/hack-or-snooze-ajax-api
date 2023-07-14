@@ -115,12 +115,13 @@ class StoryList {
     let createdAt = response.data.story.createdAt;
 
     // story: constructor({ storyId, title, author, url, username, createdAt })
-    let story = new Story(storyId, title, author, url, username, createdAt);
+    let story = new Story(storyId, title, author, url, username, createdAt); // TODO: Story object keys are undefined; might be because issue with setting or aceessing the vals
 
     return story;
   }
 }
 
+ //
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
