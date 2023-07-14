@@ -69,13 +69,19 @@ async function getAndShowNewStory(evt) {
 
   // get the form data
   evt.preventDefault();
-  let author = $newStoryAuthor.val();
-  let title = $newStoryTitle.val();
-  let url = $newStoryUrl.val();
-  console.log('author title url', author, title, url);
-  console.log('user', currentUser);
 
-  let newStoryObj = await storyList.addStory(currentUser, { author: author, title: title, url: url });
+  const newStoryInfo = {
+    author : $newStoryAuthor.val(),
+    title : $newStoryTitle.val(),
+    url : $newStoryUrl.val(),
+  }
+
+  // console.log('author title url', author, title, url);
+  // console.log('user', currentUser);
+
+  let newStoryObj = await storyList.addStory(currentUser, newStoryInfo);
+  const storyMarkup = generateStoryMarkup(newStoryObj); // TODO:
+  $allStoriesList.append(storyMarkup);
 
   console.log(newStoryObj);
 
