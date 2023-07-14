@@ -7,7 +7,7 @@ const $newStoryAuthor = $('#new-story-author');
 const $newStoryTitle = $('#new-story-title');
 const $newStoryUrl = $('#new-story-url');
 const $newStorySubmit = $('#new-story-submit');
-const $favoriteStories = $("#favorite-stories-list")
+const $favoriteStories = $("#favorite-stories-list");
 
 // console.log($newStorySubmit);
 
@@ -95,17 +95,49 @@ async function getAndShowNewFavoriteStory(evt) {
 
   console.log('getAndShowNewFavoriteStory');
 
-  // get the form data
-  evt.preventDefault();
-
   // call favoriteStory
-  await currentUser.favoriteStory();
-  $favoriteStories
+  // TODO: get the story
+  console.log(evt.target);
+  let targetId = evt.target.parentElement.id;
+  let favoriteStory;
+
+  for (let story of storyList.stories) {
+    if (story.storyId === targetId) {
+      favoriteStory = story;
+      break;
+    }
+  }
+
+  await currentUser.favoriteStory(favoriteStory);
+  // $favoriteStories;
+  console.log(currentUser.favorites);
 
   // display the story
-  //FIXME:  generateStoryMarkup and prepend to allStoriesList
-  putStoriesOnPage();
+  $favoriteStories.append(generateStoryMarkup(favoriteStory));
+
 
 }
-// console.log('before form submit');
-$favoriteStories.on('click','.bi-heart',getAndShowNewFavoriteStory);
+
+$allStoriesList.on('click', '.bi-heart', getAndShowNewFavoriteStory);
+
+
+function displayFavorites() {
+
+  console.log('displayFavorites');
+
+  // for (let favoriteStory of currentUser.favorites) {
+  //   const $newfavoriteStory = generateStoryMarkup(favoriteStory);
+  //   $favoriteStories.append($newfavoriteStory);
+  // }
+
+  // $favoriteStories.show();
+  // $allStoriesList.hide();
+
+
+
+}
+
+$navFavorites.on('click', displayFavorites)
+
+
+

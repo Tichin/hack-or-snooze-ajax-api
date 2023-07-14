@@ -14,6 +14,7 @@ const $newStoryForm = $("#new-story-form");
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
+const $navFavorites = $("nav-favorites");
 
 const $SUBMIT_BUTTON = $("#nav-submit");
 // console.log("new story form", $newStoryForm);
