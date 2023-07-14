@@ -40,12 +40,13 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-/** when an user clicks submit button, the submit form will appear. */
+/** when an user clicks submit button, the submit story form will appear. */
+
 function navSubmitClick(evt) {
   console.debug("navSubmitClick", evt);
   evt.preventDefault();
   hidePageComponents();
-  console.log($newStoryForm);
+  // console.log($newStoryForm);
   $newStoryForm.show();
 }
 

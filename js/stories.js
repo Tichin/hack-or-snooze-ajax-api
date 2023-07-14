@@ -2,13 +2,13 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-console.log("storylist is", storyList);
+// console.log("storylist is", storyList);
 const $newStoryAuthor = $('#new-story-author');
 const $newStoryTitle = $('#new-story-title');
 const $newStoryUrl = $('#new-story-url');
 const $newStorySubmit = $('#new-story-submit');
 
-console.log($newStorySubmit);
+// console.log($newStorySubmit);
 
 
 
@@ -71,23 +71,18 @@ async function getAndShowNewStory(evt) {
   evt.preventDefault();
 
   const newStoryInfo = {
-    author : $newStoryAuthor.val(),
-    title : $newStoryTitle.val(),
-    url : $newStoryUrl.val(),
-  }
-
-  // console.log('author title url', author, title, url);
-  // console.log('user', currentUser);
-
-  let newStoryObj = await storyList.addStory(currentUser, newStoryInfo);
-  const storyMarkup = generateStoryMarkup(newStoryObj); // TODO:
-  $allStoriesList.append(storyMarkup);
-
-  console.log(newStoryObj);
+    author: $newStoryAuthor.val(),
+    title: $newStoryTitle.val(),
+    url: $newStoryUrl.val(),
+  };
 
   // call addStory
+  await storyList.addStory(currentUser, newStoryInfo);
+
   // display the story
+  //FIXME:  generateStoryMarkup and prepend to allStoriesList
+  putStoriesOnPage();
 
 }
-console.log('before form submit');
+// console.log('before form submit');
 $newStoryForm.on('submit', getAndShowNewStory);

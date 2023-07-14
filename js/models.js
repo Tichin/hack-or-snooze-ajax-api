@@ -24,8 +24,9 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    // UNIMPLEMENTED: complete this function! //TODO: URL class
+    let url = new URL(this.url);
+    return url.host;
   }
 }
 
@@ -82,16 +83,17 @@ class StoryList {
     let newStoryInfoAndToken = {
       token: loginToken,
       story: {
-        author: author,
-        title: title,
-        url: url
+        author,
+        title,
+        url
       }
     };
     // make an API call (post request with new story)
     let response = await axios.post(`${BASE_URL}/stories`, newStoryInfoAndToken);
     // console.log('response is =>', response);
-    // storyList.stories.push(response.data.story); //TODO:
-    return new Story(response.data.story);
+    const story = new Story(response.data.story);
+    this.stories.unshift(story);
+    return story;
   }
 }
 
