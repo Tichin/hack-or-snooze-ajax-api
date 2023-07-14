@@ -14,7 +14,7 @@ function navAllStories(evt) {
   putStoriesOnPage();
 }
 
-console.log()
+console.log();
 
 $body.on("click", "#nav-all", navAllStories);
 
@@ -40,6 +40,7 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
+/** when an user clicks submit button, the submit form will appear. */
 function navSubmitClick(evt) {
   console.debug("navSubmitClick", evt);
   evt.preventDefault();
@@ -48,4 +49,4 @@ function navSubmitClick(evt) {
   $newStoryForm.show();
 }
 
-$SUBMIT_BUTTON.on("click",navSubmitClick);
+$SUBMIT_BUTTON.on("click", navSubmitClick);

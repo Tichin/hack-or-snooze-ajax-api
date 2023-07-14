@@ -2,6 +2,14 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+const $newStoryAuthor = $('#new-story-author');
+const $newStoryTitle = $('#new-story-title');
+const $newStoryUrl = $('#new-story-url');
+const $newStorySubmit = $('#new-story-submit');
+
+console.log($newStorySubmit);
+
+
 
 /** Get and show stories when site first loads. */
 
@@ -38,7 +46,7 @@ function generateStoryMarkup(story) {
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+  // console.debug("putStoriesOnPage");
 
   $allStoriesList.empty();
 
@@ -51,6 +59,28 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function generateFormMarkup() {
+/** Get and show new story data and display it on the website. */
+
+
+// async
+function getAndShowNewStory(evt) {
+
+  console.log('getAndShowNewStory');
+
+  // get the form data
+  evt.preventDefault();
+  let author = $newStoryAuthor.val();
+  let title = $newStoryTitle.val();
+  let url = $newStoryUrl.val();
+  console.log('author title url', author, title, url);
+  console.log('user', currentUser);
+  // let newStoryObj = await storyList.addStory(currentUser, { author, title, url });
+
+  // console.log(newStoryObj);
+
+  // call addStory
+  // display the story
 
 }
+console.log('before form submit');
+$newStoryForm.on('submit', getAndShowNewStory);
