@@ -228,7 +228,8 @@ class User {
   async unfavoriteStory(story) {
     console.log("beginning length => ", this.favorites.length);
     const ID = story.storyId;
-    this.favorites = this.favorites.filter(storyObj => { return storyObj.storyId !== ID; });
+    this.favorites = this.favorites.filter(storyObj => storyObj.storyId !== ID);
+    console.log("this check", this.favorites);
     const response = await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: "DELETE",

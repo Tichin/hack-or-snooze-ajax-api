@@ -7,6 +7,7 @@ const $newStoryAuthor = $('#new-story-author');
 const $newStoryTitle = $('#new-story-title');
 const $newStoryUrl = $('#new-story-url');
 const $newStorySubmit = $('#new-story-submit');
+const $favoriteStories = $("#favorite-stories-list")
 
 // console.log($newStorySubmit);
 
@@ -34,6 +35,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+      <i class="bi bi-heart"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -86,3 +88,24 @@ async function getAndShowNewStory(evt) {
 }
 // console.log('before form submit');
 $newStoryForm.on('submit', getAndShowNewStory);
+
+// ~~~~~~~~~~~~~favorite/unfavorite functions~~~~~~~~
+
+async function getAndShowNewFavoriteStory(evt) {
+
+  console.log('getAndShowNewFavoriteStory');
+
+  // get the form data
+  evt.preventDefault();
+
+  // call favoriteStory
+  await currentUser.favoriteStory();
+  $favoriteStories
+
+  // display the story
+  //FIXME:  generateStoryMarkup and prepend to allStoriesList
+  putStoriesOnPage();
+
+}
+// console.log('before form submit');
+$favoriteStories.on('click','.bi-heart',getAndShowNewFavoriteStory);
