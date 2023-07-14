@@ -73,22 +73,12 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  //https://hack-or-snooze-v3.herokuapp.com/stories
-  // data along with post request
-  // {
-  // "token": "YOUR_TOKEN_HERE",
-  // "story": {
-  //   "author": "Matt Lane",
-  //   "title": "The best story ever",
-  //   "url": "http://google.com"
-  // }
   async addStory(user, newStory) {
-    // UNIMPLEMENTED: complete this function!
     // deconstruct user
-    let { username, loginToken } = user;
+    let { loginToken } = user;
     // deconstruct newStory
     let { title, author, url } = newStory;
-    // make an API call (post request with new story)
+
     let newStoryInfoAndToken = {
       token: loginToken,
       story: {
@@ -97,31 +87,15 @@ class StoryList {
         url: url
       }
     };
+    // make an API call (post request with new story)
     let response = await axios.post(`${BASE_URL}/stories`, newStoryInfoAndToken);
-    console.log('response is =>', response);
-    // API will give the reponse back with data for creating a new Story instance
-    // {
-    //   "story": {
-    //     "author": "Matt Lane",
-    //     "createdAt": "017-11-09T18:38:39.409Z",
-    //     "storyId": "5081e46e-3143-4c0c-bbf4-c22eb11eb3f5",
-    //     "title": "The Best Story Ever",
-    //     "updatedAt": "017-11-09T18:38:39.409Z",
-    //     "url": "https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math",
-    //     "username": "hueter"
-    //   }
-    // }
-    let storyId = response.data.story.storyId;
-    let createdAt = response.data.story.createdAt;
+    // console.log('response is =>', response);
 
-    // story: constructor({ storyId, title, author, url, username, createdAt })
-    let story = new Story(storyId, title, author, url, username, createdAt); // TODO: Story object keys are undefined; might be because issue with setting or aceessing the vals
-
-    return story;
+    return new Story(response.data.story);
   }
 }
 
- //
+
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
