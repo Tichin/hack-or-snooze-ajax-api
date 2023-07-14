@@ -213,4 +213,25 @@ class User {
       return null;
     }
   }
+
+
+  async favoriteStory(story) {
+    this.favorites.push(story);
+    const reponse = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}}`,
+      method: "POST",
+      data: { token: this.loginToken },
+    });
+  }
+
+  unfavoriteStory(story) {
+    console.log("beginning length => ", this.favorites.length);
+    const ID = story.storyId;
+    const newFavs =  this.favorites.filter(storyObj => { console.log(storyObj); return storyObj.storyId !== ID});
+    this.favorites = newFavs;
+
+    console.log("after change length => ", this.favorites);
+
+  }
+
 }
