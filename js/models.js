@@ -228,6 +228,7 @@ class User {
   async unfavoriteStory(story) {
     console.log("beginning length => ", this.favorites.length);
     const ID = story.storyId;
+    console.log(story);
     this.favorites = this.favorites.filter(storyObj => storyObj.storyId !== ID);
     console.log("this check", this.favorites);
     const response = await axios({

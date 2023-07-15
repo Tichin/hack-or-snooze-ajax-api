@@ -97,7 +97,7 @@ async function getAndShowNewFavoriteStory(evt) {
 
   // call favoriteStory
   // TODO: get the story
-  console.log(evt.target);
+  console.log("event target", evt.target);
   let targetId = evt.target.parentElement.id;
   let favoriteStory;
 
@@ -120,24 +120,41 @@ async function getAndShowNewFavoriteStory(evt) {
 
 $allStoriesList.on('click', '.bi-heart', getAndShowNewFavoriteStory);
 
+async function removeFavoriteStory(evt) {
+  console.log("removeFavoriteStory");
+  const targetId = evt.target.parentElement.id;
+  let storyToDelete;
 
-function displayFavorites() {
+  for (let story of currentUser.favorites) {
+    if (story.storyId === targetId) {
+      storyToDelete = story;
+      break;
+    }
+  }
+
+  await currentUser.unfavoriteStory(storyToDelete);
+  console.log("removeFavoriteStory-end of function");
+}
+
+$favoriteStories.on('click','.bi-heart',removeFavoriteStory)
+
+function displayFavoriteStories(evt) {
 
   console.log('displayFavorites');
 
-  // for (let favoriteStory of currentUser.favorites) {
-  //   const $newfavoriteStory = generateStoryMarkup(favoriteStory);
-  //   $favoriteStories.append($newfavoriteStory);
-  // }
+  for (let favoriteStory of currentUser.favorites) {
+    const $newfavoriteStory = generateStoryMarkup(favoriteStory);
+    $favoriteStories.append($newfavoriteStory);
+  }
 
-  // $favoriteStories.show();
-  // $allStoriesList.hide();
-
-
+  hidePageComponents();
+  $favoriteStories.show();
 
 }
+console.log($navFavorites);
+$navFavorites.on('click', displayFavoriteStories)
 
-$navFavorites.on('click', displayFavorites)
+
 
 
 
